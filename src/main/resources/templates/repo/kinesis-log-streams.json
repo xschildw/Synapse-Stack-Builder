@@ -212,6 +212,7 @@
 				"month": "string",
 				"day": "string"
 			}
+		}
 	},
 	{
 		"name": "teamSnapshots",
