@@ -185,9 +185,33 @@
 		"partitionScheme": "year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}",
 		"bucket": "${stack}.datawarehouse.sagebase.org",
 		"bucketPrefix": "object-snapshots/",
-		"format": "JSON",
+		"format": "PARQUET",
 		"bufferFlushSize": 64,
-		"bufferFlushInterval": 900
+		"bufferFlushInterval": 900,
+		"tableDescriptor": {
+			"name": "nodeSnapshots",
+			"columns": {
+				"benefactorId": "bigint",
+				"createdBy": "bigint",
+				"createdOn": "bigint",
+				"fileHandleId": "bigint",
+				"modifiedBy": "bigint",
+				"modifiedOn": "bigint",
+				"name": "string",
+				"nodeId": "bigint",
+				"parentId": "bigint",
+				"projectId": "bigint",
+				"type": "string",
+				"versionNumber": "string",
+				"isControlled": "boolean",
+				"isPublic": "boolean",
+				"isRestricted": "boolean"
+			},
+			"partitionKeys": {
+				"year": "string",
+				"month": "string",
+				"day": "string"
+			}
 	},
 	{
 		"name": "teamSnapshots",
