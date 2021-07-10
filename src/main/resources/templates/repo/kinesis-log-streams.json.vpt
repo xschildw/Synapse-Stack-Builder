@@ -126,9 +126,9 @@
 					#end,
 					"Compressed": false,
 					#if ($stream.parameterizeDestinationByStack)
-					"Location": "s3://${stream.bucket}/${stack}${instance}${stream.name}/records"
+					"Location": "s3://${stream.bucket}/${stream.bucketPrefix}${stack}${instance}${stream.name}/records"
 					#else
-					"Location": "s3://${stream.bucket}/${stream.name}/records"
+					"Location": "s3://${stream.bucket}/${stream.bucketPrefix}${stream.name}/records"
 					#end
 				},
 				"PartitionKeys": [
