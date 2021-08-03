@@ -130,7 +130,7 @@
 		"bucket": "${stack}.testdata.sagebase.org",
 		"format": "PARQUET",
 		"bufferFlushSize": 64,
-		"bufferFlushInterval": 60,
+		"bufferFlushInterval": 900,
 		"tableDescriptor": {
 			"name": "testStreamRecords",
 			"columns": {
@@ -164,12 +164,31 @@
 	},
 	{
 		"name": "deletedNodeSnapshots",
-		"partitionScheme": "year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}",
+		"partitionScheme": "dt=!{timestamp:yyyy-MM}",
 		"bucket": "${stack}.datawarehouse.sagebase.org",
 		"bucketPrefix": "object-snapshots/",
-		"format": "JSON",
+		"format": "PARQUET",
 		"bufferFlushSize": 64,
-		"bufferFlushInterval": 900
+		"bufferFlushInterval": 900,
+		"tableDescriptor": {
+			"name": "deletedNodeRecords",
+			"columns": {
+				"timestamp": "timestamp",
+				"stack": "string",
+				"instance": "string",
+				"id": "bigint"
+			},
+			"partitionKeys": {
+				"dt": "string"
+			},
+			"parameters": {
+				"projection.enabled": "true",
+				"projection.dt.type": "date",
+				"projection.dt.format": "yyyy-MM-DD",
+				"projection.dt.range": "2020-01,NOW",
+				"projection.dt.interval": "1",
+				"projection.dt.interval.unit": "DAYS"
+			}
 	},
 	{
 		"name": "filehandleSnapshots",
