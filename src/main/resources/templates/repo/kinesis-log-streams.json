@@ -189,6 +189,7 @@
 				"projection.dt.interval": "1",
 				"projection.dt.interval.unit": "DAYS"
 			}
+		}
 	},
 	{
 		"name": "filehandleSnapshots",
