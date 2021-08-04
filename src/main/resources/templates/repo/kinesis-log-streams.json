@@ -164,7 +164,7 @@
 	},
 	{
 		"name": "deletedNodeSnapshots",
-		"partitionScheme": "dt=!{timestamp:yyyy-MM}",
+		"partitionScheme": "dt=!{timestamp:yyyy-MM-DD}",
 		"bucket": "${stack}.datawarehouse.sagebase.org",
 		"bucketPrefix": "object-snapshots/",
 		"format": "PARQUET",
