@@ -164,7 +164,7 @@
 	},
 	{
 		"name": "deletedNodeSnapshots",
-		"partitionScheme": "dt=!{timestamp:yyyy-MM-DD}",
+		"partitionScheme": "dt=!{timestamp:yyyy-MM-dd}",
 		"bucket": "${stack}.datawarehouse.sagebase.org",
 		"bucketPrefix": "object-snapshots/",
 		"format": "PARQUET",
@@ -184,7 +184,7 @@
 			"parameters": {
 				"projection.enabled": "true",
 				"projection.dt.type": "date",
-				"projection.dt.format": "yyyy-MM-DD",
+				"projection.dt.format": "yyyy-MM-dd",
 				"projection.dt.range": "2020-01,NOW",
 				"projection.dt.interval": "1",
 				"projection.dt.interval.unit": "DAYS"
@@ -202,7 +202,7 @@
 	},
 	{
 		"name": "nodeSnapshots",
-		"partitionScheme": "dt=!{timestamp:yyyy-MM-DD}",
+		"partitionScheme": "dt=!{timestamp:yyyy-MM-dd}",
 		"bucket": "${stack}.datawarehouse.sagebase.org",
 		"bucketPrefix": "object-snapshots/",
 		"format": "PARQUET",
@@ -236,7 +236,7 @@
 			"parameters": {
 				"projection.enabled": "true",
 				"projection.dt.type": "date",
-				"projection.dt.format": "yyyy-MM-DD",
+				"projection.dt.format": "yyyy-MM-dd",
 				"projection.dt.range": "2020-01,NOW",
 				"projection.dt.interval": "1",
 				"projection.dt.interval.unit": "DAYS"
