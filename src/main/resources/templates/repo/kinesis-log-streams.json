@@ -202,7 +202,7 @@
 	},
 	{
 		"name": "nodeSnapshots",
-		"partitionScheme": "year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}",
+		"partitionScheme": "dt=!{timestamp:yyyy-MM-DD}",
 		"bucket": "${stack}.datawarehouse.sagebase.org",
 		"bucketPrefix": "object-snapshots/",
 		"format": "PARQUET",
@@ -211,6 +211,9 @@
 		"tableDescriptor": {
 			"name": "nodeSnapshots",
 			"columns": {
+				"timestamp:": "timestamp",
+				"stack": "string",
+				"instance": "string",
 				"benefactorId": "bigint",
 				"createdBy": "bigint",
 				"createdOn": "bigint",
@@ -228,9 +231,15 @@
 				"isRestricted": "boolean"
 			},
 			"partitionKeys": {
-				"year": "string",
-				"month": "string",
-				"day": "string"
+				"dt": "string"
+			},
+			"parameters": {
+				"projection.enabled": "true",
+				"projection.dt.type": "date",
+				"projection.dt.format": "yyyy-MM-DD",
+				"projection.dt.range": "2020-01,NOW",
+				"projection.dt.interval": "1",
+				"projection.dt.interval.unit": "DAYS"
 			}
 		}
 	},
