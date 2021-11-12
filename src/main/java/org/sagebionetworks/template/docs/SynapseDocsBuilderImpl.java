@@ -66,13 +66,14 @@ public class SynapseDocsBuilderImpl implements SynapseDocsBuilder {
 	
 	void sync(String sourceBucket, String destinationBucket) {
 		// deployment is a sync
-		String prefix = "";
+		final String SOURCE_PREFIX = "";
+		final String DESTINATION_PREFIX = "rest";
 		Map<String, String> destinationKeyToETag = new HashMap<>();
 		// build a map of destination object keys to their etags
-		getAllS3Objects(createListObjectsRequest(destinationBucket, prefix))
+		getAllS3Objects(createListObjectsRequest(destinationBucket, ""))
 			.forEach(obj -> destinationKeyToETag.put(obj.getKey(), obj.getETag()));
 		// do the sync
-		List<S3ObjectSummary> sourceObjects = getAllS3Objects(createListObjectsRequest(sourceBucket, prefix));
+		List<S3ObjectSummary> sourceObjects = getAllS3Objects(createListObjectsRequest(sourceBucket, ""));
 		try (S3TransferManager s3TransferManager = transferManagerFactory.createNewS3TransferManager()) {
 			for (S3ObjectSummary sourceObject : sourceObjects) {
 				// make the destination map contain all objects to be removed (not updated) in the sync

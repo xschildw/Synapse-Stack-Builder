@@ -215,9 +215,9 @@ public class SynapseDocsBuilderImplTest {
 	@Test
 	public void testSyncWithDestinationSameKeyWithSameETag() throws Exception {
 		doAnswer(invocation -> mockDestinationListRequest)
-			.when(builderSpy).createListObjectsRequest(destinationBucket, prefix);
+				.when(builderSpy).createListObjectsRequest(destinationBucket, prefix);
 		doAnswer(invocation -> mockSourceListRequest)
-			.when(builderSpy).createListObjectsRequest(sourceBucket, prefix);
+				.when(builderSpy).createListObjectsRequest(sourceBucket, prefix);
 		doAnswer(invocation -> objects).when(builderSpy).getAllS3Objects(mockDestinationListRequest);
 		doAnswer(invocation -> objects).when(builderSpy).getAllS3Objects(mockSourceListRequest);
 		when(mockS3TransferManagerFactory.createNewS3TransferManager()).thenReturn(mockS3TransferManager);
@@ -229,7 +229,7 @@ public class SynapseDocsBuilderImplTest {
 		verify(mockS3Client, never()).deleteObject(any(), any());
 		verify(mockS3Client).putObject(destinationBucket, DOCS_STACK_INSTANCE_JSON_FILE, jsonUpToDate);
 	}
-	
+
 	@Test
 	public void testSyncWithDestinationSameKeyWithDifferentETag() throws Exception {
 		S3ObjectSummary newObject = new S3ObjectSummary();
