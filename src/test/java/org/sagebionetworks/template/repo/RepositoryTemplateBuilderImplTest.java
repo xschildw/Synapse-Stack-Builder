@@ -313,6 +313,7 @@ public class RepositoryTemplateBuilderImplTest {
 		// tables database
 		validateResouceTablesDatabase(resources, stack, "true");
 		validateWebAcl(resources);
+		validateCloudwatchAlarms(resources, stack, instance);
 
 		verify(mockCwlContextProvider).getLogDescriptors(EnvironmentType.REPOSITORY_SERVICES);
 		verify(mockCwlContextProvider).getLogDescriptors(EnvironmentType.REPOSITORY_WORKERS);
@@ -570,6 +571,8 @@ public class RepositoryTemplateBuilderImplTest {
 		assertFalse(tDbProps.has("DBSnapshotIdentifier"));
 		assertTrue(tDbProps.has("DBName"));
 
+		validateCloudwatchAlarms(resources, stack, instance);
+
 	}
 
 	@Test
@@ -762,6 +765,22 @@ public class RepositoryTemplateBuilderImplTest {
 		} else {
 			assertFalse(props.has("MonitoringInterval"));
 			assertFalse(props.has("MonitoringRoleArn"));
+		}
+	}
+
+	public void validateCloudwatchAlarms(JSONObject resources, String stack, String instance) {
+		assertTrue(resources.has(String.format("%s%sRepoToMainDbActiveConnectionCountAlarm", stack, instance)));
+		assertTrue(resources.has(String.format("%s%sWorkersToMainDbActiveConnectionCountAlarm", stack, instance)));
+		assertTrue(resources.has(String.format("%s%sRepoToTablesDbActiveConnectionCountAlarm", stack, instance)));
+		assertTrue(resources.has(String.format("%s%sWorkersToTablesDbActiveConnectionCountAlarm", stack, instance)));
+		if ("prod".equals(stack)) {
+			assertTrue(resources.has(String.format("%s%sDockerRegistryBadCredentialsAlarm", stack, instance)));
+			assertTrue(resources.has(String.format("%s%sCloudMailInBadCredentialsAlarm", stack, instance)));
+			assertTrue(resources.has(String.format("%s%sUnavailableFileHandleAccessedAlarm", stack, instance)));
+		} else {
+			assertFalse(resources.has(String.format("%s%sDockerRegistryBadCredentialsAlarm", stack, instance)));
+			assertFalse(resources.has(String.format("%s%sCloudMailInBadCredentialsAlarm", stack, instance)));
+			assertFalse(resources.has(String.format("%s%sUnavailableFileHandleAccessedAlarm", stack, instance)));
 		}
 	}
 

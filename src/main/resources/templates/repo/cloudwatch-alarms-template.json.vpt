@@ -1,3 +1,107 @@
+    ,
+	"${stack}${instance}RepoToMainDbActiveConnectionCountAlarm": {
+		"Type" : "AWS::CloudWatch::Alarm",
+		"Properties" : {
+			"ActionsEnabled" : true,
+			"AlarmActions" : [
+				{"Fn::ImportValue": "${globalResourcesExportPrefix}-NotificationTopic"}
+			],
+			"AlarmDescription" : "Alert when the number of active connections from repo instances to the main database gets too high.",
+			"AlarmName" : "${stack}-${instance}-Repo-Main-Active-Connections",
+			"ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+			"Dimensions" : [
+				{
+					"Name" : "filterClass",
+					"Value" : "main"
+				}
+			],
+			"EvaluationPeriods" : 3,
+			"Period" : 120,
+			"MetricName" : "DataSourceId",
+			"Namespace" : "Repo-Database-${instance}",
+			"Statistic" : "Maximum",
+			"Threshold" : 40,
+			"TreatMissingData": "notBreaching"
+		}
+	}
+    ,
+	"${stack}${instance}WorkersToMainDbActiveConnectionCountAlarm": {
+		"Type" : "AWS::CloudWatch::Alarm",
+		"Properties" : {
+			"ActionsEnabled" : true,
+			"AlarmActions" : [
+				{"Fn::ImportValue": "${globalResourcesExportPrefix}-NotificationTopic"}
+			],
+			"AlarmDescription" : "Alert when the number of active connections from worker instances to the main database gets too high.",
+			"AlarmName" : "${stack}-${instance}-Workers-Main-Active-Connections",
+			"ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+			"Dimensions" : [
+				{
+					"Name" : "filterClass",
+					"Value" : "main"
+				}
+			],
+			"EvaluationPeriods" : 3,
+			"Period" : 120,
+			"MetricName" : "DataSourceId",
+			"Namespace" : "Workers-Database-${instance}",
+			"Statistic" : "Maximum",
+			"Threshold" : 40,
+			"TreatMissingData": "notBreaching"
+		}
+	}
+    ,
+	"${stack}${instance}RepoToTablesDbActiveConnectionCountAlarm": {
+		"Type" : "AWS::CloudWatch::Alarm",
+		"Properties" : {
+			"ActionsEnabled" : true,
+			"AlarmActions" : [
+				{"Fn::ImportValue": "${globalResourcesExportPrefix}-NotificationTopic"}
+			],
+			"AlarmDescription" : "Alert when the number of active connections from repo instances to the tables database gets too high.",
+			"AlarmName" : "${stack}-${instance}-Repo-Tables-Active-Connections",
+			"ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+			"Dimensions" : [
+				{
+					"Name" : "filterClass",
+					"Value" : "tables"
+				}
+			],
+			"EvaluationPeriods" : 3,
+			"Period" : 120,
+			"MetricName" : "DataSourceId",
+			"Namespace" : "Repo-Database-${instance}",
+			"Statistic" : "Maximum",
+			"Threshold" : 40,
+			"TreatMissingData": "notBreaching"
+		}
+	}
+    ,
+	"${stack}${instance}WorkersToTablesDbActiveConnectionCountAlarm": {
+		"Type" : "AWS::CloudWatch::Alarm",
+		"Properties" : {
+			"ActionsEnabled" : true,
+			"AlarmActions" : [
+				{"Fn::ImportValue": "${globalResourcesExportPrefix}-NotificationTopic"}
+			],
+			"AlarmDescription" : "Alert when the number of active connections from worker instances to the tables database gets too high.",
+			"AlarmName" : "${stack}-${instance}-Workers-Main-Active-Connections",
+			"ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+			"Dimensions" : [
+				{
+					"Name" : "filterClass",
+					"Value" : "tables"
+				}
+			],
+			"EvaluationPeriods" : 3,
+			"Period" : 120,
+			"MetricName" : "DataSourceId",
+			"Namespace" : "Workers-Database-${instance}",
+			"Statistic" : "Maximum",
+			"Threshold" : 40,
+			"TreatMissingData": "notBreaching"
+		}
+	}
 #if(${stack} == 'prod')
 	,
 	"${stack}${instance}DockerRegistryBadCredentialsAlarm": {
