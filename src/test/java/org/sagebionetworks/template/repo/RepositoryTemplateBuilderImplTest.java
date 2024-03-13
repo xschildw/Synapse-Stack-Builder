@@ -788,6 +788,7 @@ public class RepositoryTemplateBuilderImplTest {
 			assertFalse(resources.has(String.format("%s%sCloudMailInBadCredentialsAlarm", stack, instance)));
 			assertFalse(resources.has(String.format("%s%sUnavailableFileHandleAccessedAlarm", stack, instance)));
 		}
+
 	}
 
 	@Test

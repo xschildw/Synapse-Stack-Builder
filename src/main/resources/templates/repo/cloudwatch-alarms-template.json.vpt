@@ -85,7 +85,7 @@
 				{"Fn::ImportValue": "${globalResourcesExportPrefix}-NotificationTopic"}
 			],
 			"AlarmDescription" : "Alert when the number of active connections from worker instances to the tables database gets too high.",
-			"AlarmName" : "${stack}-${instance}-Workers-Main-Active-Connections",
+			"AlarmName" : "${stack}-${instance}-Workers-Tables-Active-Connections",
 			"ComparisonOperator" : "GreaterThanOrEqualToThreshold",
 			"Dimensions" : [
 				{
