@@ -63,13 +63,15 @@ class CdnBuilderImplTest {
 	@Test
 	void testCreatePortalContext() {
 		when(mockConfig.getProperty("org.sagebionetworks.beanstalk.ssl.arn.portal")).thenReturn("acmarn");
-		when(mockConfig.getProperty("org.sagebionetworks.stack.instance.alias")).thenReturn("dev");
+		when(mockConfig.getProperty("org.sagebionetworks.stack.instance.alias")).thenReturn("tst");
+		when(mockConfig.getProperty("org.sagebionetworks.stack")).thenReturn("dev");
 
 		// call under test
 		VelocityContext ctxt = builder.createContext(CdnBuilder.Type.PORTAL);
 
 		assertEquals("acmarn", ctxt.get("AcmCertificateArn"));
-		assertEquals("dev", ctxt.get("SubDomainName"));
+		assertEquals("tst", ctxt.get("SubDomainName"));
+		assertEquals("dev", ctxt.get("stack"));
 	}
 
 	@Test
@@ -109,6 +111,7 @@ class CdnBuilderImplTest {
 
 		when(mockConfig.getProperty("org.sagebionetworks.beanstalk.ssl.arn.portal")).thenReturn("acmarn");
 		when(mockConfig.getProperty("org.sagebionetworks.stack.instance.alias")).thenReturn("dev");
+		when(mockConfig.getProperty("org.sagebionetworks.stack")).thenReturn("dev");
 
 		// call under test
 		Optional<Stack> optStack = builder.buildCdnStack(CdnBuilder.Type.PORTAL);

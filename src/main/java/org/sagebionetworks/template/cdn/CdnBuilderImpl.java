@@ -60,9 +60,12 @@ public class CdnBuilderImpl implements CdnBuilder {
 		VelocityContext ctxt = new VelocityContext();
 
 		if (Type.PORTAL.equals(type)) {
+			String stack = config.getProperty(PROPERTY_KEY_STACK);
+			ctxt.put(STACK, stack);
 			// The ACM ARN is the same as the one used for portal
 			String acmCertificateArn = config.getProperty(PROPERTY_KEY_BEANSTALK_SSL_ARN + "portal");
 			ctxt.put(CTXT_KEY_ACM_CERT_ARN, acmCertificateArn);
+			// TODO: this should be renamed to subdomainName
 			String stackInstanceAlias = config.getProperty(PROPERTY_KEY_STACK_INSTANCE_ALIAS);
 			ctxt.put(CTXT_KEY_SUBDOMAIN_NAME, stackInstanceAlias);
 		} else if (Type.DATA.equals(type)) {
