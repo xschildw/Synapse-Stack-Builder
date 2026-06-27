@@ -1,0 +1,29 @@
+# Dependabot configuration: enables scheduled version updates.
+# Security updates are enabled separately in the repo's Security settings and do
+# not require this file. This file must live on the default branch to take effect.
+version: 2
+updates:
+  # Maven dependencies (pom.xml at repo root)
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    # Group minor + patch bumps into a single PR to cut noise. Major bumps come as
+    # individual PRs and are NOT auto-merged (see dependabot-auto-merge.yml gate).
+    groups:
+      maven-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Keep the GitHub Actions used in workflows up to date
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        update-types:
+          - "minor"
+          - "patch"
